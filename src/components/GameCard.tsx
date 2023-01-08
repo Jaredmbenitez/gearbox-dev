@@ -1,5 +1,5 @@
 import Image from 'next/image';
-export default function GameCard(props) {
+export default function GameCard(props: any) {
     const discountedPrice = Math.round(props.price * (1 - props.discount / 100));
     return (
         <div className="max-w-sm rounded  max-h-sm overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105">

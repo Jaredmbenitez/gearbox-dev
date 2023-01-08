@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
     provider = "mysql"
-    url      = "mysql://root:@localhost:3306/gearbox"
+    url      = "mysql://admin:gearboxroot@gearbox.cvrmvtscw21w.us-west-1.rds.amazonaws.com/gearbox"
 }
 
 model Game {
