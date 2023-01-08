@@ -14,7 +14,9 @@ The Database is a MYSQL instance deployed using an RDS instance from AWS. I chos
 ## What would I improve?
 1. Currently, the Add Game feature will perform a window refresh after comitting a record to the database. I would adjust this to add the game to the list of existing games which are rendered on the screen, rather than needed to perform a refresh.
 2. I would add proper authentication/authorization so that a User would need to have an Admin role to access the /admin route and perform CRUD operations to the database.
-3. I would add proper image storage, rather than simply storing an image_url. This could potentially incorporate S3 or another file storage solution.
+3. I would add proper image storage, rather than simply storing an image URL. This could potentially incorporate S3 or another file storage solution.
+4. Currently, the Add Game feature only accepts images which are sourced from [Boxequalsart.com](https://boxequalsart.com). This would be adjusted.
+5. I did not implement a Unit testing library yet, however Cypress has been on my radar for projects like this.
 
 ### Create T3 App
 
