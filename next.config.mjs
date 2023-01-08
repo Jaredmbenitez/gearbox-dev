@@ -14,7 +14,7 @@ const config = {
     defaultLocale: "en",
   },
     images: {
-    domains: ["picsum.photos","www.boxequalsart.com"],
+    domains: ["www.boxequalsart.com"],
     },
 };
 export default config;
