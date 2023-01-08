@@ -21,7 +21,7 @@ const Admin: NextPage<{ games: Game[] }> = ({ games }) => {
 export default Admin;
 // Fetch games on Server before page load.
 export async function getServerSideProps() {
-    const res = await fetch("http://localhost:3000/api/games");
+    const res = await fetch("http://https://gearbox-dev.vercel.app/api/games");
     const games = await res.json();
     return {
         props: {
