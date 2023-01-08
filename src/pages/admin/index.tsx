@@ -2,7 +2,8 @@
 import { type NextPage } from "next";
 import GameGrid from "../../components/GameGrid";
 import AddGameForm from "../../components/AddGameForm";
-const Admin: NextPage = ({ games }) => {
+import type { Game } from "@prisma/client";
+const Admin: NextPage<{ games: Game[] }> = ({ games }) => {
     return (
         <>
             <main className="flex min-h-screen flex-col items-center justify-center ">
@@ -10,8 +11,8 @@ const Admin: NextPage = ({ games }) => {
                     <GameGrid games={games} adminMode={true} />
                     <div className="h-10 bg-gray-100"></div>
                     <AddGameForm />
+                    <div className="h-10 bg-gray-100"></div>
                 </div>
-
             </main>
         </>
     );

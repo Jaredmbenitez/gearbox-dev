@@ -3,7 +3,7 @@ import Head from "next/head";
 import GameGrid from "../components/GameGrid";
 import type { Game } from "@prisma/client";
 
-const Home: NextPage = ({ games }) => {
+const Home: NextPage<{ games: Game[] }> = ({ games }) => {
     return (
         <>
             <Head>
