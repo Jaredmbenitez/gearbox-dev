@@ -7,8 +7,10 @@ export default function GameGrid(props: { games: Game[], adminMode?: boolean }) 
 
     const [existingGames, setExistingGames] = useState(props.games);
     const [genreFilter, setGenreFilter] = useState("All");
+    const [ratingFilter, setRatingFilter] = useState("All");
     const [pageNumber, setPageNumber] = useState(1);
     const [gamesPerPage, setGamesPerPage] = useState(10);
+
 
     const handleDeleteGame = (id: number) => {
         fetch(`/api/games/${id}`, {
@@ -100,6 +102,10 @@ export default function GameGrid(props: { games: Game[], adminMode?: boolean }) 
         setGenreFilter(event.target.value);
         setPageNumber(1); // reset page number when genre is changed
     }
+    const handleRatingChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setRatingFilter(event.target.value);
+        setPageNumber(1); // reset page number when rating is changed
+    }
     const handleNextButtonClick = () => {
         setPageNumber(pageNumber + 1);
     }
@@ -108,10 +114,18 @@ export default function GameGrid(props: { games: Game[], adminMode?: boolean }) 
         setPageNumber(pageNumber - 1);
     }
 
-    const filteredGames = genreFilter === 'All'
-        ? existingGames
-        : existingGames.filter(game => game.genre === genreFilter);
 
+    const filteredGames = existingGames.filter((game: Game) => {
+        if (genreFilter === "All" && ratingFilter === "All") {
+            return true;
+        } else if (genreFilter === "All") {
+            return game.rating === parseInt(ratingFilter);
+        } else if (ratingFilter === "All") {
+            return game.genre === genreFilter;
+        } else {
+            return game.genre === genreFilter && game.rating === parseInt(ratingFilter);
+        }
+    });
     const lastGameIndex = pageNumber * gamesPerPage;
     const firstGameIndex = lastGameIndex - gamesPerPage;
     const currentPageGames = filteredGames.slice(firstGameIndex, lastGameIndex);
@@ -132,6 +146,20 @@ export default function GameGrid(props: { games: Game[], adminMode?: boolean }) 
                     <option value="Shooter">Shooter</option>
                     <option value="Role Playing Game">Role Playing Game</option>
                     <option value="Adventure">Adventure</option>
+                </select>
+            </div>
+            <div className="flex flex-col">
+                <label className="text-xl font-bold">Rating</label>
+                <select className="border border-gray-300 rounded-md p-2"
+                    value={ratingFilter}
+                    onChange={handleRatingChange}
+                >
+                    <option value="All">All</option>
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
                 </select>
             </div>
             <div className="h-10 bg-gray-100 my-2"></div>
