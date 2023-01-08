@@ -19,7 +19,7 @@ typescript:{
     defaultLocale: "en",
   },
     images: {
-    domains: ["www.boxequalsart.com"],
+    domains: ["www.boxequalsart.com","boxequalsart.com"],
     },
 };
 export default config;

@@ -12,7 +12,6 @@ const Home: NextPage<{ games: Game[] }> = ({ games }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className="flex min-h-screen flex-col items-center justify-center">
-                <h1 className="text-4xl font-bold text-white">Welcome to the gearbox dev test</h1>
                 <GameGrid games={games} />
             </main>
         </>
