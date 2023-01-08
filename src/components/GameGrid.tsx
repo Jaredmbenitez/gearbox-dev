@@ -46,7 +46,7 @@ export default function GameGrid(props: { games: Game[], adminMode?: boolean }) 
         <div className="mx-4 my-4">
             <h2 className="text-2xl font-bold text-center">Games</h2>
             <div className="flex flex-col">
-                <label className="text-xl font-bold">Genre</label>
+                <label className="text-xl font-bold">Filter by Genre</label>
                 <select
                     className="border border-gray-300 rounded-md p-2"
                     value={genreFilter}
@@ -61,7 +61,7 @@ export default function GameGrid(props: { games: Game[], adminMode?: boolean }) 
                 </select>
             </div>
             <div className="flex flex-col">
-                <label className="text-xl font-bold">Rating</label>
+                <label className="text-xl font-bold">Filter by Rating</label>
                 <select className="border border-gray-300 rounded-md p-2"
                     value={ratingFilter}
                     onChange={handleRatingChange}
