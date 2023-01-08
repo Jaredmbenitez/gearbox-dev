@@ -22,7 +22,7 @@ const Home: NextPage<{ games: Game[] }> = ({ games }) => {
 export default Home;
 // Fetch games on Server before page load.
 export async function getServerSideProps() {
-    const res = await fetch("http://localhost:3000/api/games");
+    const res = await fetch("https://gearbox-dev.vercel.app/api/games");
     const games = await res.json();
     return {
         props: {
