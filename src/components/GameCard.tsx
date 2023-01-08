@@ -22,7 +22,14 @@ export default function GameCard(props: any) {
             </div>
             <div class="flex flex-col">
                 <label for="swal-input2">Genre</label>
-                <input id="swal-input2" class="swal2-input" placeholder="Game Genre" value="${props.existingGames.find((game: Game) => game.id === id)?.genre}">
+                <select id="swal-input2" class="swal2-input" placeholder="Game Genre" value="${props.existingGames.find((game: Game) => game.id === id)?.genre}">
+                    <option value="Adventure">Adventure</option>
+                    <option value="Shooter">Shooter</option>
+                    <option value="Role Playing Game">Role Playing Game</option>
+                    <option value="Fighting">Fighting</option>
+                    <option value="Platformer">Platformer</option>
+                </select>
+
             </div>
             <div class="flex flex-col">
                 <label for="swal-input3">Rating</label>
