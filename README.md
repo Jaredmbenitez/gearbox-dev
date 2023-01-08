@@ -3,8 +3,9 @@ This application was built using create-t3-app because I am familiar with the fr
 
 ## Important Notes
 1. The database schema for the game table is available in the `prisma/schema.prisma` file. This file is used to generate the database schema and is used by the Prisma ORM to access the database. It is also available in the game.sql file in the root of the project.
-2. When testing the application and adding a new game, please use the following image URL: https://boxequalsart.com/wp-content/uploads/2021/03/boxequalsart-2021-03-01-11-51-01-1024x1024.jpg or any other image sourced from the domain : https://boxequalsart.com. This is because the application is currently only accepting images from this domain.
-3.  The application is currently deployed, to prevent you from having to build it locally. The link is available [here](https://gearbox-dev.vercel.app/)
+2. When testing the application and adding any image sourced from the domain : https://boxequalsart.com. This is because the application is currently only accepting images from this domain.
+3. The application is currently deployed, to prevent you from having to build it locally. The link is available [here](https://gearbox-dev.vercel.app/)
+
 ## Extra Credit
 1. The application includes a filter by genre / rating. Filtering by rating will allow the user to see any games with the selected rating. (5 Stars would show best sellers, or I would later implement a counter of numSales which would accomplish this.)
 2. I did not yet account for high usage.
