@@ -2,7 +2,6 @@
 import type { Game } from '@prisma/client'
 import GameCard from './GameCard';
 import { useState } from 'react';
-import Swal from 'sweetalert2';
 export default function GameGrid(props: { games: Game[], adminMode?: boolean }) {
 
     const [existingGames, setExistingGames] = useState(props.games);
@@ -10,95 +9,6 @@ export default function GameGrid(props: { games: Game[], adminMode?: boolean }) 
     const [ratingFilter, setRatingFilter] = useState("All");
     const [pageNumber, setPageNumber] = useState(1);
     const [gamesPerPage, setGamesPerPage] = useState(10);
-
-
-    const handleDeleteGame = (id: number) => {
-        fetch(`/api/games/${id}`, {
-            method: "DELETE",
-        }).then((res) => res.json()).then((data) => {
-            setExistingGames(existingGames.filter((game: Game) => game.id !== id));
-        });
-    };
-    const handleEditGame = (id: number) => {
-
-        Swal.fire({
-            title: 'Edit Game',
-            html: `
-            <div class="flex flex-col">
-                <label for="swal-input1">Name</label>
-                <input id="swal-input1" class="swal2-input" placeholder="Game Name" value="${existingGames.find((game: Game) => game.id === id)?.name}">
-            </div>
-            <div class="flex flex-col">
-                <label for="swal-input2">Genre</label>
-                <input id="swal-input2" class="swal2-input" placeholder="Game Genre" value="${existingGames.find((game: Game) => game.id === id)?.genre}">
-            </div>
-            <div class="flex flex-col">
-                <label for="swal-input3">Rating</label>
-                <input id="swal-input3" class="swal2-input" placeholder="Game Rating" value="${existingGames.find((game: Game) => game.id === id)?.rating}">
-            </div>
-            <div class="flex flex-col">
-                <label for="swal-input4">Price</label>
-                <input id="swal-input4" class="swal2-input" placeholder="Game Price" value="${existingGames.find((game: Game) => game.id === id)?.price}">
-            </div>
-            <div class="flex flex-col">
-                <label for="swal-input5">Discount</label>
-                <input id="swal-input5" class="swal2-input" placeholder="Game Discount" value="${existingGames.find((game: Game) => game.id === id)?.discount}">
-            </div>
-            <div class="flex flex-col">
-                <label for="swal-input6">Release Date</label>
-                <input id="swal-input6" class="swal2-input" placeholder="Game Release Date" value="${existingGames.find((game: Game) => game.id === id)?.releaseDate}">
-            </div>
-            <div class="flex flex-col">
-                <label for="swal-input7">Image URL</label>
-                <input id="swal-input7" class="swal2-input" placeholder="Game Image URL" value="${existingGames.find((game: Game) => game.id === id)?.image_url}">
-            </div>
-            `,
-            focusConfirm: false,
-            showCancelButton: true,
-            preConfirm: () => {
-                return [
-                    (document.getElementById('swal-input1') as HTMLInputElement).value,
-                    (document.getElementById('swal-input2') as HTMLInputElement).value,
-                    (document.getElementById('swal-input3') as HTMLInputElement).value,
-                    (document.getElementById('swal-input4') as HTMLInputElement).value,
-                    (document.getElementById('swal-input5') as HTMLInputElement).value,
-                    (document.getElementById('swal-input6') as HTMLInputElement).value,
-                    (document.getElementById('swal-input7') as HTMLInputElement).value,
-                ]
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                //The below line would cause issues with the fetch request because the values are potentially undefined
-                //This is related to typescript, and the source of the change to the next.config.mjs file.
-                const [name, genre, rating, price, discount, releaseDate, image_url] = result.value;
-                fetch(`/api/games/${id}`, {
-                    method: "PATCH",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        name,
-                        genre,
-                        rating: parseInt(rating),
-                        price: parseInt(price),
-                        discount: parseInt(discount),
-                        releaseDate: new Date(releaseDate).toISOString(),
-                        image_url
-                    })
-                }).then((res) => res.json()).then((data) => {
-                    //Update the record in the existing games array
-                    setExistingGames(existingGames.map((game: Game) => {
-                        if (game.id === id) {
-                            return data;
-                        } else {
-                            return game;
-                        }
-                    }
-                    ));
-                });
-            }
-        });
-    };
 
     const handleGenreChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setGenreFilter(event.target.value);
@@ -173,8 +83,8 @@ export default function GameGrid(props: { games: Game[], adminMode?: boolean }) 
                         key={game.id}
                         {...game}
                         adminMode={props.adminMode}
-                        handleDeleteGame={handleDeleteGame}
-                        handleEditGame={handleEditGame}
+                        existingGames={existingGames}
+                        setExistingGames={setExistingGames}
                     />
                 ))}
             </div>
