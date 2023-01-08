@@ -30,7 +30,12 @@ export default function AddGameForm() {
                 image_url: imageURL
             }
             ),
-        }).then((res) => { console.log(res) })
+        }).then((res) => {
+            if (res.ok) {
+                window.location.href = "/admin?Game_added=true";
+            }
+        });
+
     };
     return (
         <form onSubmit={handleSubmit} className="mx-4 my-4 p-4 border border-gray-300 rounded" >
