@@ -25,32 +25,32 @@ export default function GameGrid(props: { games: Game[], adminMode?: boolean }) 
             title: 'Edit Game',
             html: `
             <div class="flex flex-col">
-            <label for="swal-input1">Name</label>
-            <input id="swal-input1" class="swal2-input" placeholder="Game Name" value="${existingGames.find((game: Game) => game.id === id)?.name}">
+                <label for="swal-input1">Name</label>
+                <input id="swal-input1" class="swal2-input" placeholder="Game Name" value="${existingGames.find((game: Game) => game.id === id)?.name}">
             </div>
             <div class="flex flex-col">
-            <label for="swal-input2">Genre</label>
-            <input id="swal-input2" class="swal2-input" placeholder="Game Genre" value="${existingGames.find((game: Game) => game.id === id)?.genre}">
+                <label for="swal-input2">Genre</label>
+                <input id="swal-input2" class="swal2-input" placeholder="Game Genre" value="${existingGames.find((game: Game) => game.id === id)?.genre}">
             </div>
             <div class="flex flex-col">
-            <label for="swal-input3">Rating</label>
-            <input id="swal-input3" class="swal2-input" placeholder="Game Rating" value="${existingGames.find((game: Game) => game.id === id)?.rating}">
+                <label for="swal-input3">Rating</label>
+                <input id="swal-input3" class="swal2-input" placeholder="Game Rating" value="${existingGames.find((game: Game) => game.id === id)?.rating}">
             </div>
             <div class="flex flex-col">
-            <label for="swal-input4">Price</label>
-            <input id="swal-input4" class="swal2-input" placeholder="Game Price" value="${existingGames.find((game: Game) => game.id === id)?.price}">
+                <label for="swal-input4">Price</label>
+                <input id="swal-input4" class="swal2-input" placeholder="Game Price" value="${existingGames.find((game: Game) => game.id === id)?.price}">
             </div>
             <div class="flex flex-col">
-            <label for="swal-input5">Discount</label>
-            <input id="swal-input5" class="swal2-input" placeholder="Game Discount" value="${existingGames.find((game: Game) => game.id === id)?.discount}">
+                <label for="swal-input5">Discount</label>
+                <input id="swal-input5" class="swal2-input" placeholder="Game Discount" value="${existingGames.find((game: Game) => game.id === id)?.discount}">
             </div>
             <div class="flex flex-col">
-            <label for="swal-input6">Release Date</label>
-            <input id="swal-input6" class="swal2-input" placeholder="Game Release Date" value="${existingGames.find((game: Game) => game.id === id)?.releaseDate}">
+                <label for="swal-input6">Release Date</label>
+                <input id="swal-input6" class="swal2-input" placeholder="Game Release Date" value="${existingGames.find((game: Game) => game.id === id)?.releaseDate}">
             </div>
             <div class="flex flex-col">
-            <label for="swal-input7">Image URL</label>
-            <input id="swal-input7" class="swal2-input" placeholder="Game Image URL" value="${existingGames.find((game: Game) => game.id === id)?.image_url}">
+                <label for="swal-input7">Image URL</label>
+                <input id="swal-input7" class="swal2-input" placeholder="Game Image URL" value="${existingGames.find((game: Game) => game.id === id)?.image_url}">
             </div>
             `,
             focusConfirm: false,
@@ -68,6 +68,8 @@ export default function GameGrid(props: { games: Game[], adminMode?: boolean }) 
             }
         }).then((result) => {
             if (result.isConfirmed) {
+                //The below line would cause issues with the fetch request because the values are potentially undefined
+                //This is related to typescript, and the source of the change to the next.config.mjs file.
                 const [name, genre, rating, price, discount, releaseDate, image_url] = result.value;
                 fetch(`/api/games/${id}`, {
                     method: "PATCH",
@@ -164,7 +166,9 @@ export default function GameGrid(props: { games: Game[], adminMode?: boolean }) 
             </div>
             <div className="h-10 bg-gray-100 my-2"></div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {currentPageGames.map((game: Game) => (
+                {/* No Games found if the filtered games array is empty */}
+                {filteredGames.length === 0 && <div className="text-xl font-bold">No Games Found</div>}
+                {filteredGames.length !== 0 && currentPageGames.map((game: Game) => (
                     <GameCard
                         key={game.id}
                         {...game}

@@ -1,4 +1,3 @@
-// Admins should have the option to add, edit and delete from the list of games.
 import { type NextPage } from "next";
 import GameGrid from "../../components/GameGrid";
 import AddGameForm from "../../components/AddGameForm";
@@ -21,7 +20,7 @@ const Admin: NextPage<{ games: Game[] }> = ({ games }) => {
 export default Admin;
 // Fetch games on Server before page load.
 export async function getServerSideProps() {
-    const res = await fetch("https://gearbox-dev.vercel.app/api/games");
+    const res = await fetch("http://gearbox-dev.vercel.app/api/games");
     const games = await res.json();
     return {
         props: {

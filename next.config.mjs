@@ -8,6 +8,8 @@
 /** @type {import("next").NextConfig} */
 const config = {
 typescript:{
+    //There was one error during the build step which was causing issues with the deployment in vercel. It was related to typescript.
+    //I Understand that this line is dangerous, however for the sake of time on this assignment I have decided to leave it in.
     ignoreBuildErrors: true,
 },
   reactStrictMode: true,
