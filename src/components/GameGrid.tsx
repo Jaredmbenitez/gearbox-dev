@@ -16,7 +16,7 @@ export default function GameGrid(props: { games: Game[], adminMode?: boolean }) 
         fetch(`/api/games/${id}`, {
             method: "DELETE",
         }).then((res) => res.json()).then((data) => {
-            setExistingGames(props.games.filter((game: Game) => game.id !== id));
+            setExistingGames(existingGames.filter((game: Game) => game.id !== id));
         });
     };
     const handleEditGame = (id: number) => {
